@@ -1,11 +1,21 @@
-import { auth } from "@/lib/auth";
+"use client";
 
-export default async function DashboardPage() {
-  // const session = await auth();
-  // if (!session) {
-  //   return <p>Acesso negado. Faça login primeiro.</p>;
-  // }
-  // return <h1>Bem-vindo, {session.user?.name}!</h1>;
+import { Button } from "@/components/ui/button";
 
-  return <h1>Home Page Login</h1>;
+import { signIn, signOut, useSession } from "next-auth/react";
+
+export default function DashboardPage() {
+  const { data: session, status } = useSession();
+
+  return (
+    <div className="">
+      {status}
+      {session?.user?.name}
+      {session?.user?.email}
+      {session?.user?.image}
+      {session?.expires}
+      <Button onClick={() => signIn("google")}>Entrar com o Google</Button>;
+      <Button onClick={() => signOut()}> Sair da conta.</Button>
+    </div>
+  );
 }
