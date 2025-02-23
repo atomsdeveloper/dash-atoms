@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import SessionProviderWrapper from "@/session/session-provider-wrapper";
+import SessionProviderWrapper from "@/app/session-provider-wrapper";
+import { LoadingProvider } from "../context/loading";
+import { ThemeProvider } from "@/context/theme";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -21,7 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
-        <SessionProviderWrapper>{children}</SessionProviderWrapper>
+        <LoadingProvider>
+          <ThemeProvider>
+            <SessionProviderWrapper>{children}</SessionProviderWrapper>
+          </ThemeProvider>
+        </LoadingProvider>
       </body>
     </html>
   );
