@@ -1,10 +1,10 @@
 "use client";
 
-import React, { Children, createContext, useCallback, useState } from "react";
+import React, { createContext, useState } from "react";
 
 export interface ILoadingContext {
   loading: boolean;
-  handleSetLoading: (value: boolean) => void;
+  handleSetLoading: () => void;
 }
 
 export const LoadingContext = createContext<ILoadingContext>({
@@ -19,9 +19,9 @@ interface LoadingProps {
 export const LoadingProvider = ({ children }: LoadingProps) => {
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSetLoading = useCallback((state: boolean) => {
-    setLoading(state);
-  }, []);
+  const handleSetLoading = () => {
+    setLoading(prev => !prev);
+  };
 
   return (
     <LoadingContext.Provider

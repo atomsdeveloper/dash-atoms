@@ -1,14 +1,15 @@
 "use client"
 
-import React, { createContext, useCallback, useEffect, useState } from "react"
+import { useSession } from "next-auth/react";
+import React, { createContext, useState } from "react"
 
 export interface IThemeContext {
-    theme: string,
-    handleSetTheme: (value: string) => void;
+    theme: boolean,
+    handleSetTheme: () => void;
 }
 
 export const ThemeContext = createContext<IThemeContext>({
-    theme: "light",
+    theme: false,
     handleSetTheme: () => {},
 })
 
@@ -17,20 +18,13 @@ interface ChildrenProps {
 }
 
 export const ThemeProvider = ({children}: ChildrenProps) => {
-    const [theme, setTheme] = useState<string>("light");
+    const { data: session } = useSession();
+    const [theme, setTheme] = useState<boolean>(false);
 
-    useEffect(() => {
-        const storedTheme = localStorage.getItem("theme") || "light";
-        storedTheme && setTheme(storedTheme);
+    const handleSetTheme = async () => {
+        setTheme(prev => !prev)
+    };
 
-        if(storedTheme === "dark") {
-            document.documentElement.classList.add("dark")
-        }
-    }, [])
-
-    const handleSetTheme = useCallback((value: string) => {
-        setTheme(value)
-    }, []);
     return (
         <ThemeContext.Provider value={{
             theme,
