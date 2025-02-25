@@ -27,6 +27,7 @@ model User {
   id                String              @id @default(cuid())
   name              String?
   email             String?             @unique
+  role              String
   image             String?
   sessions          Session[]
   createdAt         DateTime            @default(now())
