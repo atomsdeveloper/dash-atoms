@@ -23,11 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
-        <LoadingProvider>
-          <ThemeProvider>
-            <SessionProviderWrapper>{children}</SessionProviderWrapper>
-          </ThemeProvider>
-        </LoadingProvider>
+        <SessionProviderWrapper>
+          <LoadingProvider>
+            <ThemeProvider>
+              {children}
+            </ThemeProvider>
+          </LoadingProvider>
+        </SessionProviderWrapper>
       </body>
     </html>
   );
