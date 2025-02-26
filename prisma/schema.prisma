@@ -9,8 +9,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Session {
@@ -24,15 +25,28 @@ model Session {
 }
 
 model User {
-  id                String              @id @default(cuid())
+  id                String              @id @default(uuid())
   name              String?
   email             String?             @unique
-  role              String
+  role              Role
   image             String?
   sessions          Session[]
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @updatedAt
   VerificationToken VerificationToken[]
+  rous              Rou[]
+}
+
+model Rou {
+  id        String   @id @default(uuid())
+  name      String?
+  email     String?  @unique
+  image     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  admin   User   @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  adminId String
 }
 
 model VerificationToken {
@@ -43,4 +57,9 @@ model VerificationToken {
   userId     String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  ROU
 }
