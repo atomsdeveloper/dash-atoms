@@ -4,6 +4,7 @@ import "./globals.css";
 import SessionProviderWrapper from "@/app/session-provider-wrapper";
 import { LoadingProvider } from "../context/loading";
 import { ThemeProvider } from "@/context/theme";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -26,6 +27,7 @@ export default function RootLayout({
         <SessionProviderWrapper>
           <LoadingProvider>
             <ThemeProvider>
+              <Toaster />
               {children}
             </ThemeProvider>
           </LoadingProvider>
