@@ -29,6 +29,7 @@ export const createUser = async (input: CreateUserProps) => {
     if (!user) {
       const newUser = await db.user.create({
         data: {
+          name: "",
           email: input.email,
           password: hashedPassword,
           role: "ROU",
