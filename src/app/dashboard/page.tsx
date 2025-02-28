@@ -1,35 +1,50 @@
 "use client";
 
-import { useContext, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { ThemeContext } from "@/context/theme";
-import { Button } from "@/components/ui/button";
+import * as React from "react";
 
+import { Button } from "@/components/ui/button";
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { AppSidebar } from "@/components/app-sidebar";
-
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { Sun, Languages, Moon } from "lucide-react";
+import { ThemeContext } from "@/context/theme";
 
 const DashboardPage = () => {
+  const [language, setLanguage] = React.useState("pt-br");
+  const { theme, handleSetTheme } = React.useContext(ThemeContext);
+
+  React.useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
+  
   return (
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
+        <header className="flex h-16 items-center justify-between gap-2 py-2 pr-6 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+          <div className="flex h-full w-3/6 items-center gap-2 px-4">
+            <SidebarTrigger className={`-ml-1 ${theme? "text-white" : ""}`}/>
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
@@ -38,6 +53,37 @@ const DashboardPage = () => {
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
+          </div>
+          <div className="flex h-full w-3/6 items-center justify-end gap-3">
+            <Button 
+              className={`w-16 rounded-full text-xs flex  ${theme ? "justify-start" : "justify-end"}`} 
+              onClick={() => handleSetTheme()}
+            >
+              {theme ? <Sun size={10}/> : <Moon size={10} />}
+            </Button>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="w-16 rounded-full text-xs">
+                  {language}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuLabel>Escolha um idioma</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuRadioGroup
+                  value={language}
+                  onValueChange={setLanguage}
+                >
+                  <DropdownMenuRadioItem value="en-US">
+                    Inglês
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem value="pt-BR">
+                    Português
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">

@@ -1,7 +1,7 @@
 "use client"
 
 import { useSession } from "next-auth/react";
-import React, { createContext, useState } from "react"
+import React, { createContext, useState, useEffect } from "react"
 
 export interface IThemeContext {
     theme: boolean,
@@ -24,6 +24,15 @@ export const ThemeProvider = ({children}: ChildrenProps) => {
     const handleSetTheme = async () => {
         setTheme(prev => !prev)
     };
+
+    // Atualiza a classe do <html> sempre que `theme` mudar
+    useEffect(() => {
+        if (theme) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+    }, [theme]);
 
     return (
         <ThemeContext.Provider value={{
