@@ -26,7 +26,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { Sun, Languages, Moon } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import { ThemeContext } from "@/context/theme";
 
 const DashboardPage = () => {
@@ -56,15 +56,15 @@ const DashboardPage = () => {
           </div>
           <div className="flex h-full w-3/6 items-center justify-end gap-3">
             <Button 
-              className={`w-16 rounded-full text-xs flex  ${theme ? "justify-start" : "justify-end"}`} 
+              className={`w-16 h-8 rounded-full text-xs flex  ${theme ? "justify-end" : "justify-start"}`} 
               onClick={() => handleSetTheme()}
             >
-              {theme ? <Sun size={10}/> : <Moon size={10} />}
+              {theme ? <Moon size={10} /> : <Sun size={10}/> }
             </Button>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button className="w-16 rounded-full text-xs">
+                <Button className="w-16 h-8 rounded-full text-xs">
                   {language}
                 </Button>
               </DropdownMenuTrigger>
@@ -87,16 +87,22 @@ const DashboardPage = () => {
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
+          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min"> 
+            <div className="grid auto-rows-min gap-4 md:grid-cols-2">
+              <div className="aspect-video rounded-xl bg-muted/100" />
+              <div className="aspect-video rounded-xl bg-muted/100" />
+              <div className="aspect-video rounded-xl bg-muted/100" />
+              <div className="aspect-video rounded-xl bg-muted/100" />
+            </div>
           </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
+            <div className="aspect-video rounded-xl bg-muted/100" />
+            <div className="aspect-video rounded-xl bg-muted/100" />
+            <div className="aspect-video rounded-xl bg-muted/100" />
+          </div>
         </div>
       </SidebarInset>
     </SidebarProvider>
   );
 };
-
 export default DashboardPage;
