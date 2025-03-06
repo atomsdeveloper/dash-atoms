@@ -21,23 +21,23 @@ const data = {
   navMain: [
     {
       title: "Leaderboard",
-      url: "#",
+      url: "leaderboard",
       icon: ChartNoAxesColumn,
       isActive: true,
     },
     {
       title: "Orders",
-      url: "#",
+      url: "orders",
       icon: ShoppingCart,
     },
     {
       title: "Products",
-      url: "#",
+      url: "products",
       icon: ShoppingBag,
     },
     {
       title: "Sales Repeat",
-      url: "#",
+      url: "sales",
       icon: ChartSpline,
     },
   ],
