@@ -16,31 +16,12 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 import { Sun, Moon } from "lucide-react";
 import { ThemeContext } from "@/context/theme";
-import { useTranslation } from "next-i18next";
-import { useRouter } from "next/router";
 
 const DashboardPage = () => {
-  const { i18n } = useTranslation();
-  const router = useRouter();
-  const [language, setLanguage] = React.useState("pt-br");
   const { theme, handleSetTheme } = React.useContext(ThemeContext);
-
-  React.useEffect(() => {
-    i18n.changeLanguage(language);
-    router.push(router.asPath, undefined, { locale: language });
-  }, [language, i18n, router]);
 
   return (
     <SidebarProvider>
@@ -65,29 +46,6 @@ const DashboardPage = () => {
             >
               {theme ? <Moon size={10} /> : <Sun size={10} />}
             </Button>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button className="h-8 w-16 rounded-full text-xs">
-                  {language}
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Escolha um idioma</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuRadioGroup
-                  value={language}
-                  onValueChange={setLanguage}
-                >
-                  <DropdownMenuRadioItem value="en">
-                    Inglês
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="pt">
-                    Português
-                  </DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
         </header>
         <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
