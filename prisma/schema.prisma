@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,133 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model MenuCategory {
+  id           String     @id
+  name         String
+  restaurantId String
+  createdAt    DateTime   @default(now())
+  updateAt     DateTime
+  Restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  Products     Products[]
+}
+
+model Order {
+  id                Int               @id @default(autoincrement())
+  total             Float
+  status            OrderStatus
+  consumptionMethod ConsumptionMethod
+  restaurantId      String
+  createdAt         DateTime          @default(now())
+  updateAt          DateTime
+  customerCpf       String
+  customerName      String
+  Restaurant        Restaurant        @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  OrderProduct      OrderProduct[]
+}
+
+model OrderProduct {
+  id        String   @id
+  productId String
+  orderId   Int
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+  updateAt  DateTime
+  Order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  Products  Products @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Products {
+  id             String         @id
+  name           String
+  description    String
+  price          Float
+  imageUrl       String
+  ingredients    String[]
+  restaurantId   String
+  menuCategoryId String
+  createdAt      DateTime       @default(now())
+  updateAt       DateTime
+  OrderProduct   OrderProduct[]
+  MenuCategory   MenuCategory   @relation(fields: [menuCategoryId], references: [id], onDelete: Cascade)
+  Restaurant     Restaurant     @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+}
+
+model Restaurant {
+  id             String         @id
+  name           String
+  slug           String         @unique
+  description    String
+  avatarImageUrl String
+  coverImageUrl  String
+  createdAt      DateTime       @default(now())
+  updateAt       DateTime
+  MenuCategory   MenuCategory[]
+  Order          Order[]
+  Products       Products[]
+}
+
+model Rou {
+  id        String   @id
+  name      String?
+  email     String?  @unique
+  image     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  adminId   String
+  User      User     @relation(fields: [adminId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id           String   @id
+  sessionToken String   @unique
+  expires      DateTime
+  userId       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+  User         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id                String              @id
+  name              String?
+  email             String?             @unique
+  password          String?
+  role              Role
+  image             String?
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime
+  Rou               Rou[]
+  Session           Session[]
+  VerificationToken VerificationToken[]
+}
+
+model VerificationToken {
+  identifier String   @unique
+  token      String   @unique
+  expires    DateTime
+  userId     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+  User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum ConsumptionMethod {
+  TAKEAWAY
+  DINE_IN
+}
+
+enum OrderStatus {
+  PENDING
+  IN_PREPARATION
+  FINISHED
+  PAYMENT_CONFIRMED
+  PAYMENT_FAILED
+}
+
+enum Role {
+  ADMIN
+  ROU
 }
