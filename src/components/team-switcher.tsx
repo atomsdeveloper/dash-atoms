@@ -10,13 +10,13 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { ChartPie } from "lucide-react";
 
 export function TeamSwitcher() {
   const { open } = useSidebar();
-  
+
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -29,8 +29,8 @@ export function TeamSwitcher() {
               <div className="flex aspect-square size-8 w-3/4 items-center justify-center gap-2 rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                 {open ? (
                   <>
-                    <ChartPie size={18} />
-                    <p className="text-sm"> Dashbang </p>
+                    <ChartPie size={16} />
+                    <p className="text-xs"> Dashbang </p>
                   </>
                 ) : (
                   <ChartPie size={14} />

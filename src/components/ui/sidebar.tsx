@@ -19,11 +19,11 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import {VisuallyHidden} from '@radix-ui/react-visually-hidden'
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-const SIDEBAR_WIDTH = "16rem";
+const SIDEBAR_WIDTH = "11em";
 const SIDEBAR_WIDTH_MOBILE = "18rem";
 const SIDEBAR_WIDTH_ICON = "3rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
@@ -216,9 +216,9 @@ const Sidebar = React.forwardRef<
             }
             side={side}
           >
-           <VisuallyHidden>
-            <SheetTitle className="sr-only">Title</SheetTitle>
-           </VisuallyHidden>
+            <VisuallyHidden>
+              <SheetTitle className="sr-only">Title</SheetTitle>
+            </VisuallyHidden>
             <div className="flex h-full w-full flex-col">{children}</div>
           </SheetContent>
         </Sheet>
