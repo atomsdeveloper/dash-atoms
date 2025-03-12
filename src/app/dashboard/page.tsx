@@ -16,7 +16,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import Content from "../components/content";
+import Content from "./components/content";
 
 import { Sun, Moon } from "lucide-react";
 import { ThemeContext } from "@/context/theme";
