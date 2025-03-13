@@ -1,5 +1,5 @@
 import React from "react";
-import { getOrders } from "../actions/get-orders";
+import { getOrders } from "../../actions/get-orders";
 import { Order, OrderStatus } from "@prisma/client";
 
 const Orders = () => {
