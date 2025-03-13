@@ -1,10 +1,16 @@
+// Este deverá ser um componente do lado do servidor onde será recebido de um Context as informações sobre as vendas e etc.
+
+import {
+  UserRoundPlus,
+  ChartColumnIncreasing,
+  FileChartColumnIncreasing,
+  Tag,
+} from "lucide-react";
+
 import { Download } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import TotalOrders from "../../components/total-orders";
-import TotalSales from "../../components/total-sales";
-import ProductsSales from "../../components/products-sold";
-import Customers from "../../components/customers";
+import Summary from "../../components/summary";
 
 const Leaderboard = () => {
   return (
@@ -27,10 +33,45 @@ const Leaderboard = () => {
           </div>
 
           <div className="grid h-full w-full grid-cols-4 gap-2">
-            <TotalSales />
-            <TotalOrders />
-            <ProductsSales />
-            <Customers />
+            {/* Sales */}
+            <Summary
+              bgColorDiv={`bg-red-200`}
+              bgColorIcon={` bg-red-400`}
+              icon={ChartColumnIncreasing}
+              value={`7`}
+              title={`New Sales`}
+              desc={`+ 1 new sales today`}
+            />
+
+            {/* Orders */}
+            <Summary
+              bgColorDiv={`bg-orange-200`}
+              bgColorIcon={` bg-orange-400`}
+              icon={FileChartColumnIncreasing}
+              value={`10`}
+              title={`Total Orders`}
+              desc={`+ 2 new orders today`}
+            />
+
+            {/* Products */}
+            <Summary
+              bgColorDiv={`bg-green-200`}
+              bgColorIcon={` bg-green-400`}
+              icon={Tag}
+              value={`68`}
+              title={`Products Sold`}
+              desc={`+ 7 products today`}
+            />
+
+            {/* Custumers */}
+            <Summary
+              bgColorDiv={`bg-violet-200`}
+              bgColorIcon={` bg-violet-400`}
+              icon={UserRoundPlus}
+              value={`10`}
+              title={`New Custumers`}
+              desc={`+ 8 new users today`}
+            />
           </div>
         </div>
 
