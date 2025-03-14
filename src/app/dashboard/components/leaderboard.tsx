@@ -14,7 +14,7 @@ import Summary from "../../components/summary";
 
 const Leaderboard = () => {
   return (
-    <div className="grid h-full w-full grid-cols-7 grid-rows-4 gap-4 p-2 pt-2 lg:grid-cols-7 lg:grid-rows-3">
+    <div className="grid-rows-auto grid h-full w-full grid-cols-7 gap-4 p-2 pt-2 lg:grid-cols-7 lg:grid-rows-3">
       {/* Linha 1 */}
       <div className="col-span-7 grid w-full gap-4 lg:grid-cols-7">
         <div className="col-span-7 flex h-full w-full flex-col items-center gap-3 rounded-lg bg-white p-2 lg:col-span-4">
@@ -79,16 +79,22 @@ const Leaderboard = () => {
       </div>
 
       {/* Linha 2 */}
-      <div className="col-span-7 grid grid-cols-7 gap-4">
-        <div className="col-span-3 bg-green-500 p-4">Item 2.1</div>
-        <div className="col-span-2 bg-green-700 p-4">Item 2.2</div>
-        <div className="col-span-2 bg-green-900 p-4">Item 2.3</div>
+      <div className="col-span-7 grid gap-4 lg:grid-cols-7">
+        <div className="col-span-7 bg-green-500 p-4 lg:col-span-3">
+          Item 2.1
+        </div>
+        <div className="col-span-3 bg-green-700 p-4 lg:col-span-2">
+          Item 2.2
+        </div>
+        <div className="col-span-4 bg-green-900 p-4 lg:col-span-2">
+          Item 2.3
+        </div>
       </div>
       {/* Linha 3 */}
-      <div className="col-span-7 grid grid-cols-7 gap-4">
-        <div className="col-span-3 bg-red-500 p-4">Item 2.1</div>
-        <div className="col-span-2 bg-red-700 p-4">Item 2.2</div>
-        <div className="col-span-2 bg-red-900 p-4">Item 2.3</div>
+      <div className="col-span-7 grid gap-4 lg:grid-cols-7">
+        <div className="col-span-7 bg-red-500 p-4 lg:col-span-3">Item 2.1</div>
+        <div className="col-span-3 bg-red-700 p-4 lg:col-span-2">Item 2.2</div>
+        <div className="col-span-4 bg-red-900 p-4 lg:col-span-2">Item 2.3</div>
       </div>
     </div>
   );
