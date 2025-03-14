@@ -1,5 +1,3 @@
-import { UserRoundPlus } from "lucide-react";
-
 interface SummaryProps {
   bgColorDiv: string;
   bgColorIcon: string;
@@ -27,8 +25,8 @@ const Summary = ({
         <Icon size={18} color="white" />
       </div>
       <h1 className="text-lg">{value}</h1>
-      <h3 className="text-sm opacity-70">{title}</h3>
-      <span className="text-xs text-blue-800">{desc}</span>
+      <h3 className="text-[12px] opacity-70 lg:text-sm">{title}</h3>
+      <span className="text-[10px] text-blue-800">{desc}</span>
     </div>
   );
 };

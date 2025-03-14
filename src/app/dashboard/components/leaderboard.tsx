@@ -14,10 +14,10 @@ import Summary from "../../components/summary";
 
 const Leaderboard = () => {
   return (
-    <div className="grid h-full w-full grid-cols-7 grid-rows-3 gap-4 p-2 pt-2">
+    <div className="grid h-full w-full grid-cols-7 grid-rows-4 gap-4 p-2 pt-2 lg:grid-cols-7 lg:grid-rows-3">
       {/* Linha 1 */}
-      <div className="col-span-7 grid grid-cols-7 gap-4">
-        <div className="rounded- col-span-4 flex h-full flex-col items-center gap-3 rounded-md bg-white p-2">
+      <div className="col-span-7 grid w-full gap-4 lg:grid-cols-7">
+        <div className="col-span-7 flex h-full w-full flex-col items-center gap-3 rounded-lg bg-white p-2 lg:col-span-4">
           <div className="flex w-full items-center justify-between">
             <div className="flex flex-col">
               <h1 className="text-sm">Today´s Sales</h1>
@@ -75,7 +75,7 @@ const Leaderboard = () => {
           </div>
         </div>
 
-        <div className="col-span-3 bg-blue-700 p-4">Item 1.2</div>
+        <div className="col-span-7 bg-blue-700 p-4 lg:col-span-3">Item 1.2</div>
       </div>
 
       {/* Linha 2 */}
