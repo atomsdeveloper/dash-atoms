@@ -2,7 +2,7 @@ interface SummaryProps {
   bgColorDiv: string;
   bgColorIcon: string;
   icon: React.ElementType;
-  value: string;
+  data: object[];
   title: string;
   desc: string;
 }
@@ -11,7 +11,7 @@ const Summary = ({
   bgColorDiv,
   bgColorIcon,
   icon: Icon,
-  value,
+  data,
   title,
   desc,
 }: SummaryProps) => {
@@ -24,7 +24,7 @@ const Summary = ({
       >
         <Icon size={18} color="white" />
       </div>
-      <h1 className="text-lg">{value}</h1>
+      <h1 className="text-lg">{data.length}</h1>
       <h3 className="text-[12px] opacity-70 lg:text-sm">{title}</h3>
       <span className="text-[10px] text-blue-800">{desc}</span>
     </div>

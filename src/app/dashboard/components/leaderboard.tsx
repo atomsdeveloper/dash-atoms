@@ -1,5 +1,3 @@
-// Este deverá ser um componente do lado do servidor onde será recebido de um Context as informações sobre as vendas e etc.
-
 import {
   UserRoundPlus,
   ChartColumnIncreasing,
@@ -11,8 +9,19 @@ import { Download } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import Summary from "../../components/summary";
+import { DataContext } from "@/context/datas";
+import React from "react";
 
 const Leaderboard = () => {
+  const {
+    orders,
+    ordersProducts,
+    customers,
+    sales,
+    salesToday,
+    ordersToday,
+    ordersProductsToday,
+  } = React.useContext(DataContext);
   return (
     <div className="grid-rows-auto grid h-full w-full grid-cols-7 gap-4 p-2 pt-2 lg:grid-cols-7 lg:grid-rows-3">
       {/* Linha 1 */}
@@ -38,9 +47,9 @@ const Leaderboard = () => {
               bgColorDiv={`bg-red-200`}
               bgColorIcon={` bg-red-400`}
               icon={ChartColumnIncreasing}
-              value={`7`}
+              data={sales}
               title={`New Sales`}
-              desc={`+ 1 new sales today`}
+              desc={`+ ${salesToday} sales today`}
             />
 
             {/* Orders */}
@@ -48,9 +57,9 @@ const Leaderboard = () => {
               bgColorDiv={`bg-orange-200`}
               bgColorIcon={` bg-orange-400`}
               icon={FileChartColumnIncreasing}
-              value={`10`}
+              data={orders}
               title={`Total Orders`}
-              desc={`+ 2 new orders today`}
+              desc={`+ ${ordersToday} orders today`}
             />
 
             {/* Products */}
@@ -58,9 +67,9 @@ const Leaderboard = () => {
               bgColorDiv={`bg-green-200`}
               bgColorIcon={` bg-green-400`}
               icon={Tag}
-              value={`68`}
+              data={ordersProducts}
               title={`Products Sold`}
-              desc={`+ 7 products today`}
+              desc={`+ ${ordersProductsToday} products today`}
             />
 
             {/* Custumers */}
@@ -68,9 +77,9 @@ const Leaderboard = () => {
               bgColorDiv={`bg-violet-200`}
               bgColorIcon={` bg-violet-400`}
               icon={UserRoundPlus}
-              value={`10`}
+              data={customers}
               title={`New Custumers`}
-              desc={`+ 8 new users today`}
+              desc={`+ ${ordersToday} users today`}
             />
           </div>
         </div>
