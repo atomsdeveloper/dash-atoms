@@ -49,14 +49,15 @@ const DashboardPage = () => {
           </div>
           <div className="flex h-full w-3/6 items-center justify-end gap-3">
             <Button
-              className={`flex h-8 w-16 rounded-full text-xs ${theme ? "justify-end" : "justify-start"}`}
+              className={`flex p-2 h-8 rounded-md text-xs gap-1 items-center justify-center`}
               onClick={() => handleSetTheme()}
             >
-              {theme ? <Moon size={10} /> : <Sun size={10} />}
+              {theme ? <Sun size={10} /> : <Moon size={10} />}
+              {theme ? <p>Ligth</p> : <p>Dark</p>}
             </Button>
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 bg-slate-100 p-4 pt-0">
+        <div className="flex flex-1 flex-col gap-0 pt-4">
           <Content />
         </div>
       </SidebarInset>
