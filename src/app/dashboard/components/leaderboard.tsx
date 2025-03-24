@@ -11,19 +11,13 @@ import { Button } from "@/components/ui/button";
 import Summary from "../../components/summary";
 import { DataContext } from "@/context/datas";
 
-import React, { PureComponent } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-
+import React from "react";
 import { dataSimpleLineChart } from "@/helpers/data-charts";
+import LineChartComponent from "./charts/line-chart";
+import BarChartComponent from "./charts/bar-chart";
+import DotsLineChartComponent from "./charts/dots-line-chart";
+import TooltipChartComponent from "./charts/tooltip-chart";
+import PieChartComponent from "./charts/pie-chart";
 
 const Leaderboard = () => {
   const {
@@ -54,7 +48,7 @@ const Leaderboard = () => {
             </Button>
           </div>
 
-          <div className="grid h-full w-full grid-cols-4 gap-2">
+          <div className="grid h-full w-full grid-cols-[repeat(auto-fit,minmax(150px,1fr))] place-items-center gap-2">
             {/* Sales */}
             <Summary
               bgColorDiv={`bg-red-200`}
@@ -97,53 +91,32 @@ const Leaderboard = () => {
           </div>
         </div>
 
-        <div className="col-span-7 h-auto items-center rounded-lg bg-white p-4 lg:col-span-3">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart
-              width={500}
-              height={300}
-              data={dataSimpleLineChart}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="pv"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-              <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+        {/* <div className="col-span-7 h-auto items-center rounded-lg bg-white p-4 lg:col-span-3"> */}
+          <LineChartComponent />
+        {/* </div> */}
       </div>
 
       {/* Linha 2 */}
       <div className="col-span-7 grid gap-4 lg:grid-cols-7">
-        <div className="col-span-7 bg-green-500 p-4 lg:col-span-3">
-          Item 2.1
+        <div className="col-span-7 p-4 lg:col-span-3">
+          <BarChartComponent />
         </div>
-        <div className="col-span-3 bg-green-700 p-4 lg:col-span-2">
-          Item 2.2
+        <div className="col-span-3 p-4 lg:col-span-2">
+          <DotsLineChartComponent />
         </div>
-        <div className="col-span-4 bg-green-900 p-4 lg:col-span-2">
-          Item 2.3
+        <div className="col-span-4 p-4 lg:col-span-2">
+          <BarChartComponent />
         </div>
       </div>
       {/* Linha 3 */}
       <div className="col-span-7 grid gap-4 lg:grid-cols-7">
+        <div className="col-span-4 p-4 lg:col-span-2">
+          <TooltipChartComponent />
+        </div>
+        <div className="col-span-3 p-4 lg:col-span-2">
+          <PieChartComponent/>
+        </div>
         <div className="col-span-7 bg-red-500 p-4 lg:col-span-3">Item 2.1</div>
-        <div className="col-span-3 bg-red-700 p-4 lg:col-span-2">Item 2.2</div>
-        <div className="col-span-4 bg-red-900 p-4 lg:col-span-2">Item 2.3</div>
       </div>
     </div>
   );

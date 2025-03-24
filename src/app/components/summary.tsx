@@ -17,7 +17,7 @@ const Summary = ({
 }: SummaryProps) => {
   return (
     <div
-      className={`flex flex-col gap-1 rounded-xl bg-muted/50 ${bgColorDiv} p-4`}
+      className={`flex flex-col gap-1 rounded-xl bg-muted/50 ${bgColorDiv} w-full p-4`}
     >
       <div
         className={`flex h-8 w-8 items-center justify-center rounded-full ${bgColorIcon}`}
