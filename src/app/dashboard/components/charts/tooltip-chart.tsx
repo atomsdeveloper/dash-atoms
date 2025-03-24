@@ -40,10 +40,10 @@ const chartConfig = {
 
 const TooltipChartComponent = () => {
   return (
-    <Card>
+    <Card className="h-full">
       <CardHeader>
-        <CardTitle>Tooltip - Icons</CardTitle>
-        <CardDescription>Tooltip with icons.</CardDescription>
+        <CardTitle>Vendas Concluídas Vs Vendas Pendentes</CardTitle>
+        <CardDescription>Relátório de vendas não realizadas comparadas as vendas concluídas.</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

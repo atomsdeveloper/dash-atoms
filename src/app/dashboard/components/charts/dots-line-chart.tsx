@@ -54,9 +54,9 @@ const chartConfig = {
 
 const DotsLineChartComponent = () => {
   return (
-    <Card className="border-none shadow-none">
+    <Card className="h-full">
       <CardHeader>
-        <CardTitle>Line Chart - Dots Colors</CardTitle>
+        <CardTitle>Satisfação do Cliente</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
@@ -104,10 +104,10 @@ const DotsLineChartComponent = () => {
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+          Obteve um aumento na Satisfação do cliente em 5.6% <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Análise a satisfação do cliente com os seus produtos.
         </div>
       </CardFooter>
     </Card>

@@ -40,9 +40,9 @@ const chartConfig = {
 
 const LineChartComponent = () => {
   return (
-    <Card className="border-none shadow-none col-span-7 h-auto items-center rounded-lg bg-white p-4 lg:col-span-3">
+    <Card className="h-full">
       <CardHeader>
-        <CardTitle>Line Chart - Multiple</CardTitle>
+        <CardTitle>Análise de Recebimentos</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent>
@@ -84,12 +84,12 @@ const LineChartComponent = () => {
       <CardFooter>
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
-            <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-            </div>
-            <div className="flex items-center gap-2 leading-none text-muted-foreground">
-              Showing total visitors for the last 6 months
-            </div>
+          <div className="flex gap-2 font-medium leading-none">
+          Valores recebidos este mês com 5.2% <TrendingUp className="h-4 w-4" />
+        </div>
+        <div className="leading-none text-muted-foreground">
+          Análise os valores recebidos deste mês em comparação com o mês anterior.
+        </div>
           </div>
         </div>
       </CardFooter>
