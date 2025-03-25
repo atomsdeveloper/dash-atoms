@@ -8,6 +8,7 @@ interface Customer {
 }
 
 export interface IDataContext {
+  months: string[]
   ordersProductsToday: number;
   ordersToday: number;
   salesToday: number;
@@ -20,6 +21,7 @@ export interface IDataContext {
 }
 
 export const DataContext = createContext<IDataContext>({
+  months: [],
   ordersProductsToday: 0,
   ordersToday: 0,
   salesToday: 0,
@@ -64,6 +66,16 @@ export const DataProvider = ({ children }: DataProps) => {
       console.error("Erro ao buscar os dados:", error);
     }
   };
+
+  const allMonths = [
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+  ];
+  
+  const currentMonthIndex = new Date().getMonth(); // Obtém o índice do mês atual
+  
+  // Filtra apenas os meses de janeiro até o mês atual
+  const months = allMonths.slice(0, currentMonthIndex + 1);
 
   useEffect(() => {
     fetchData();
@@ -131,6 +143,7 @@ export const DataProvider = ({ children }: DataProps) => {
   return (
     <DataContext.Provider
       value={{
+        months,
         sales,
         salesToday,
         customers,

@@ -12,7 +12,7 @@ import { DataContext } from "@/context/datas";
 
 import Summary from "../../components/summary";
 
-import LineChartComponent from "./charts/line-chart";
+import AnalystReceivingChart from "./charts/analyst-receiving-chart";
 import BarChartComponent from "./charts/bar-chart";
 import DotsLineChartComponent from "./charts/dots-line-chart";
 import TooltipChartComponent from "./charts/tooltip-chart";
@@ -109,7 +109,7 @@ const Leaderboard = () => {
           </Card>
         </div>
         <div className="w-full lg:flex-1 h-full">
-         <LineChartComponent />
+         <AnalystReceivingChart/>
         </div>
       </div>
       <div className="flex-1 flex gap-2 p-2 flex-wrap">
