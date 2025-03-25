@@ -32,14 +32,9 @@ const AnalystReceivingChart = () => {
   const {
     months,
     orders,
+    monthlyData,
     getMonthName
   } = React.useContext(DataContext);
-  
-  // Criar um objeto base para armazenar os contadores de pagamentos
-  const monthlyData: Record<string, { count: number }> = months.reduce((acc, month) => {
-    acc[month] = { count: 0 };
-    return acc;
-  }, {} as Record<string, { count: number }>);
   
   // Processar os pedidos confirmados
   orders.filter((order) => {

@@ -43,6 +43,7 @@ const Leaderboard = () => {
     salesToday,
     ordersToday,
     ordersProductsToday,
+    totalProductsSales,
   } = React.useContext(DataContext);
   return (
     <div className="w-full h-screen flex flex-col">
@@ -79,7 +80,7 @@ const Leaderboard = () => {
                 bgColorDiv={`bg-green-300`}
                 bgColorIcon={`bg-green-500`}
                 icon={Tag}
-                data={ordersProducts}
+                data={totalProductsSales}
                 title={`Produtos Vendidos`}
                 desc={`+ ${ordersProductsToday} produtos hoje`}
               />
