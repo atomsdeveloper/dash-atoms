@@ -108,7 +108,7 @@ const Leaderboard = () => {
             </CardFooter>
           </Card>
         </div>
-        <div className="w-full lg:flex-1 h-full">
+        <div className="w-full lg:flex-1">
          <AnalystReceivingChart/>
         </div>
       </div>
