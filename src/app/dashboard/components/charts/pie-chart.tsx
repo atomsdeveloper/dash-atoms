@@ -60,7 +60,7 @@ const PieChartComponent = () => {
   return (
     <Card className="h-full">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Clientes por Estado</CardTitle>
+        <CardTitle>Produtos Vendidos por Categoria</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
@@ -115,10 +115,10 @@ const PieChartComponent = () => {
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          Estado com o maior número de clientes. <TrendingUp className="h-4 w-4" />
+          Produtos mais vendidos em sua loja. <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Análise os estados realizaram compras em sua loja.
+          Número total de produtos vendidos separados por categorias.
         </div>
       </CardFooter>
     </Card>
