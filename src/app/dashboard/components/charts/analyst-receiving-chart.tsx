@@ -32,6 +32,7 @@ const AnalystReceivingChart = () => {
   const {
     months,
     orders,
+    getMonthName
   } = React.useContext(DataContext);
   
   // Criar um objeto base para armazenar os contadores de pagamentos
@@ -57,15 +58,6 @@ const AnalystReceivingChart = () => {
     month,
     total: values.count
   }));
-
-  const getMonthName = (monthIndex: number) => {
-    const months = [
-      "January", "February", "March", "April", "May", "June", 
-      "July", "August", "September", "October", "November", "December"
-    ];
-    
-    return months[monthIndex];
-  };
 
   const calculateMonthlyChange = (chartData: { month: string; total: number }[]) => {
     const lastMonth = chartData.find((data) => data.month === getMonthName(new Date().getMonth()));

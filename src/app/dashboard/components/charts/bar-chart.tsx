@@ -1,6 +1,9 @@
 "use client"
 
+import React from "react"
+
 import { TrendingUp } from "lucide-react"
+
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
 
 import {
@@ -11,33 +14,48 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
+
+import { DataContext } from "@/context/datas"
 
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
+  bigger: {
+    label: "Mais Vendidos",
     color: "hsl(var(--chart-1))",
   },
-  mobile: {
-    label: "Mobile",
+  small: {
+    label: "Menos Vendidos",
     color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
 
 const BarChartComponent = () => {
+  const {
+    months,
+    ordersProducts,
+  } = React.useContext(DataContext);  
+  
+  // Criar um objeto base para armazenar os contadores de número de vendas por produto.
+  const monthlyData: Record<string, { bigger: number, small: number }> = months.reduce((acc, month) => {
+    acc[month] = { bigger: 0, small: 0 };
+    return acc;
+  }, {} as Record<string, { bigger: number, small: number }>);
+  
+  // Transformar o objeto em um array para passar para o gráfico
+  const chartData = Object.entries(monthlyData).map(([month, values]) => ({
+    month,
+    bigger: values.bigger,
+    small: values.small,
+  }));
+    
+  
+    
   return (
     <Card className="h-full">
       <CardHeader>
@@ -59,8 +77,8 @@ const BarChartComponent = () => {
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            <Bar dataKey="bigger" fill="#80affd" radius={4} />
+            <Bar dataKey="small" fill="#2662d9" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>
