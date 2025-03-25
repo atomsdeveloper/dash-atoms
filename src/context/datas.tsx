@@ -7,8 +7,16 @@ interface Customer {
   customerCpf: string;
 }
 
+type ProductSales = {
+  totalProduct: number;
+};
+
 export interface IDataContext {
   months: string[]
+  monthlyData: Record<
+    string,
+    { count: number } | { bigger: number; small: number }
+  >;
   ordersProductsToday: number;
   ordersToday: number;
   salesToday: number;
@@ -16,12 +24,15 @@ export interface IDataContext {
   customers: Customer[];
   ordersProducts: OrderProduct[];
   orders: Order[];
+  totalProductsSales: ProductSales[];
+  getMonthName: (monthIndex: number) => any;
   handleSetOrders: (orders: Order[]) => void;
   handleSetOrdersProducts: (ordersProducts: OrderProduct[]) => void;
 }
 
 export const DataContext = createContext<IDataContext>({
   months: [],
+  monthlyData: {},
   ordersProductsToday: 0,
   ordersToday: 0,
   salesToday: 0,
@@ -29,6 +40,8 @@ export const DataContext = createContext<IDataContext>({
   customers: [],
   ordersProducts: [],
   orders: [],
+  totalProductsSales: [],
+  getMonthName: () => {},
   handleSetOrders: () => {},
   handleSetOrdersProducts: () => {},
 });
@@ -47,6 +60,10 @@ export const DataProvider = ({ children }: DataProps) => {
   const [ordersToday, setOrdersToday] = useState<number>(0);
   const [ordersProductsToday, setOrdersProductsToday] = useState<number>(0);
 
+  const [totalProductsSales, setTotalProductsSales] = useState<ProductSales[]>([
+    {totalProduct: 0}
+  ]);
+
   const fetchData = async () => {
     try {
       const [ordersResponse, ordersProductsResponse] = await Promise.all([
@@ -60,6 +77,12 @@ export const DataProvider = ({ children }: DataProps) => {
           ordersProductsResponse.json(),
         ]);
 
+      const totalProducts = ordersProducts.reduce((acc, atual) => acc + atual.quantity, 0);
+      
+      setTotalProductsSales(prev => {
+        const currentTotal = prev.length >= 0 ? prev[0].totalProduct : 0;
+        return [{ totalProduct: currentTotal + totalProducts }];
+      });
       setOrders(orders);
       setOrdersProducts(ordersProducts);
     } catch (error) {
@@ -76,6 +99,21 @@ export const DataProvider = ({ children }: DataProps) => {
   
   // Filtra apenas os meses de janeiro até o mês atual
   const months = allMonths.slice(0, currentMonthIndex + 1);
+
+  const getMonthName = (monthIndex: number) => {
+    const months = [
+      "January", "February", "March", "April", "May", "June", 
+      "July", "August", "September", "October", "November", "December"
+    ];
+    
+    return months[monthIndex];
+  };
+
+  // Criar um objeto base para armazenar os contadores
+  const monthlyData: Record<string, { count: number }> = months.reduce((acc, month) => {
+    acc[month] = { count: 0 };
+    return acc;
+  }, {} as Record<string, { count: number }>);
 
   useEffect(() => {
     fetchData();
@@ -144,6 +182,7 @@ export const DataProvider = ({ children }: DataProps) => {
     <DataContext.Provider
       value={{
         months,
+        monthlyData,
         sales,
         salesToday,
         customers,
@@ -151,6 +190,8 @@ export const DataProvider = ({ children }: DataProps) => {
         ordersToday,
         ordersProducts,
         ordersProductsToday,
+        totalProductsSales,
+        getMonthName,
         handleSetOrders: setOrders,
         handleSetOrdersProducts: setOrdersProducts,
       }}
