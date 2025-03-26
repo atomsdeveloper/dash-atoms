@@ -46,16 +46,18 @@ const BarChartComponent = () => {
     acc[month] = { bigger: 0, small: 0 };
     return acc;
   }, {} as Record<string, { bigger: number, small: number }>);
-  
-  // Transformar o objeto em um array para passar para o gráfico
+
+  // A partir de monthlyData, podemos gerar o chartData
   const chartData = Object.entries(monthlyData).map(([month, values]) => ({
     month,
     bigger: values.bigger,
-    small: values.small,
+    small: values.small
   }));
-    
+
+  chartData.map((data) => {
+    console.log(data)
+  })
   
-    
   return (
     <Card className="h-full">
       <CardHeader>
