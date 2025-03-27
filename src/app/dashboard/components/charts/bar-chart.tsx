@@ -25,13 +25,9 @@ import {
 import { DataContext } from "@/context/datas"
 
 const chartConfig = {
-  bigger: {
-    label: "Mais Vendidos",
+  count: {
+    label: "Vendidos",
     color: "hsl(var(--chart-1))",
-  },
-  small: {
-    label: "Menos Vendidos",
-    color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig
 
@@ -50,19 +46,38 @@ const BarChartComponent = () => {
   // A partir de monthlyData, podemos gerar o chartData
   const chartData = Object.entries(monthlyData).map(([month, values]) => ({
     month,
-    bigger: values.bigger,
-    small: values.small
+    count: 0,
   }));
 
-  chartData.map((data) => {
-    console.log(data)
-  })
+  ordersProducts.map((product) => {
+    // Certifique-se de que product.createdAt é um objeto Date
+    const createdAtDate = new Date(product.createdAt).getMonth();
   
+    // Verifique se a conversão foi bem-sucedida (data válida)
+    if (!isNaN(createdAtDate)) {
+      const productMonth = months[createdAtDate]; // Converte o número do mês para o nome
+      const existingProduct = chartData.find(data => data.month === productMonth);
+      
+      if (existingProduct) {
+        // Se o mês já existe, soma a quantidade
+        existingProduct.count += product.quantity;
+      } else {
+        // Se o mês não existe, cria a entrada para o mês com a quantidade
+        chartData.push({
+          month: productMonth,
+          count: product.quantity,
+        });
+      }
+    } else {
+      console.error(`Invalid date: ${product.createdAt}`);
+    }
+  });
+
   return (
     <Card className="h-full">
       <CardHeader>
         <CardTitle>Balançemento de Produtos</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription>Total de produtos vendidos por mês.</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -79,8 +94,7 @@ const BarChartComponent = () => {
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="bigger" fill="#80affd" radius={4} />
-            <Bar dataKey="small" fill="#2662d9" radius={4} />
+            <Bar dataKey="count" fill="#2662d9" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>

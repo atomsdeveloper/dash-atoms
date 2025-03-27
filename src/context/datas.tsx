@@ -1,7 +1,8 @@
 "use client";
 
-import { Order, OrderProduct } from "@prisma/client";
+import { Order, OrderProduct, Products } from "@prisma/client";
 import React, { createContext, useEffect, useState } from "react";
+import { LoadingContext } from "./loading";
 
 interface Customer {
   customerCpf: string;
@@ -11,23 +12,28 @@ type ProductSales = {
   totalProduct: number;
 };
 
+export interface OrderProductWithName extends OrderProduct {
+  name: string;
+}
+
 export interface IDataContext {
   months: string[]
   monthlyData: Record<
     string,
-    { count: number } | { bigger: number; small: number }
+    { count: number }
   >;
   ordersProductsToday: number;
   ordersToday: number;
   salesToday: number;
   sales: Order[];
   customers: Customer[];
-  ordersProducts: OrderProduct[];
+  ordersProducts: OrderProductWithName[];
   orders: Order[];
+  products: Products[];
   totalProductsSales: ProductSales[];
   getMonthName: (monthIndex: number) => any;
   handleSetOrders: (orders: Order[]) => void;
-  handleSetOrdersProducts: (ordersProducts: OrderProduct[]) => void;
+  handleSetOrdersProducts: (ordersProducts: OrderProductWithName[]) => void;
 }
 
 export const DataContext = createContext<IDataContext>({
@@ -40,6 +46,7 @@ export const DataContext = createContext<IDataContext>({
   customers: [],
   ordersProducts: [],
   orders: [],
+  products: [],
   totalProductsSales: [],
   getMonthName: () => {},
   handleSetOrders: () => {},
@@ -52,7 +59,8 @@ interface DataProps {
 
 export const DataProvider = ({ children }: DataProps) => {
   const [orders, setOrders] = useState<Order[]>([]);
-  const [ordersProducts, setOrdersProducts] = useState<OrderProduct[]>([]);
+  const [products, setProducts] = useState<Products[]>([]);
+  const [ordersProducts, setOrdersProducts] = useState<OrderProductWithName[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [sales, setSales] = useState<Order[]>([]);
 
@@ -64,17 +72,24 @@ export const DataProvider = ({ children }: DataProps) => {
     {totalProduct: 0}
   ]);
 
+  const {
+      handleSetLoading
+  } = React.useContext(LoadingContext);
+
   const fetchData = async () => {
+    handleSetLoading()
     try {
-      const [ordersResponse, ordersProductsResponse] = await Promise.all([
+      const [ordersResponse, ordersProductsResponse, productsResponse] = await Promise.all([
         fetch("/api/orders"),
         fetch("/api/orders-products"),
+        fetch("/api/products"),
       ]);
 
-      const [orders, ordersProducts]: [Order[], OrderProduct[]] =
+      const [orders, ordersProducts, products]: [Order[], OrderProductWithName[], Products[]] =
         await Promise.all([
           ordersResponse.json(),
           ordersProductsResponse.json(),
+          productsResponse.json()
         ]);
 
       const totalProducts = ordersProducts.reduce((acc, atual) => acc + atual.quantity, 0);
@@ -85,6 +100,8 @@ export const DataProvider = ({ children }: DataProps) => {
       });
       setOrders(orders);
       setOrdersProducts(ordersProducts);
+      setProducts(products)
+      handleSetLoading()
     } catch (error) {
       console.error("Erro ao buscar os dados:", error);
     }
@@ -181,6 +198,7 @@ export const DataProvider = ({ children }: DataProps) => {
   return (
     <DataContext.Provider
       value={{
+        products,
         months,
         monthlyData,
         sales,
