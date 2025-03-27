@@ -17,27 +17,13 @@ import BarChartComponent from "./charts/bar-chart";
 import DotsLineChartComponent from "./charts/dots-line-chart";
 import TooltipChartComponent from "./charts/tooltip-chart";
 import PieChartComponent from "./charts/pie-chart";
-
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-
-import { Progress } from "@/components/ui/progress";
-
-import { Badge } from "@/components/ui/badge";
+import BestSallerProducts from "./charts/best-saller-products";
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Leaderboard = () => {
   const {
     orders,
-    ordersProducts,
     customers,
     sales,
     salesToday,
@@ -54,7 +40,7 @@ const Leaderboard = () => {
               <CardTitle>Vendas</CardTitle>
               <CardDescription>Sumário de Vendas</CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col md:flex-row gap-4">
+            <CardContent className="flex flex-col items-center justify-center md:flex-row gap-4">
               {/* Sales */}
               <Summary
                 bgColorDiv={`bg-red-200`}
@@ -123,37 +109,7 @@ const Leaderboard = () => {
       </div>
       <div className="flex-1 flex gap-2 p-2">
         <div className="w-full">
-          <Card className="min-h-[373px]">
-            <CardHeader>
-              <CardTitle>Top Produtos</CardTitle>
-              <CardDescription>Melhores produtos da loja.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableCaption>A list of your recent invoices.</TableCaption>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[100px]">#</TableHead>
-                    <TableHead>Nome</TableHead>
-                    <TableHead>Populariedade</TableHead>
-                    <TableHead className="text-right">Vendas</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="font-medium">INV001</TableCell>
-                    <TableCell>Nome do Produto</TableCell>
-                    <TableCell>
-                      <Progress value={33} />
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Badge variant="outline">54%</Badge>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
+         <BestSallerProducts/>
         </div>
       </div>
       <div className="flex-1 flex gap-2 p-2 flex-wrap">
