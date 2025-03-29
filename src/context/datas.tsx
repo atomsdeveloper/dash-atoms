@@ -22,6 +22,10 @@ export interface IDataContext {
     string,
     { count: number }
   >;
+  monthlyDataCostumer: Record<
+  string,
+  { count: number, total: number,  cpfs: Set<string> }
+  >;
   ordersProductsToday: number;
   ordersToday: number;
   salesToday: number;
@@ -39,6 +43,7 @@ export interface IDataContext {
 export const DataContext = createContext<IDataContext>({
   months: [],
   monthlyData: {},
+  monthlyDataCostumer: {},
   ordersProductsToday: 0,
   ordersToday: 0,
   salesToday: 0,
@@ -132,6 +137,12 @@ export const DataProvider = ({ children }: DataProps) => {
     return acc;
   }, {} as Record<string, { count: number }>);
 
+    // Criar um objeto base para armazenar os clientes por mês.
+    const monthlyDataCostumer: Record<string, { count: number, total: number, cpfs: Set<string>}> = months.reduce((acc, month) => {
+      acc[month] = { count: 0, total: 0, cpfs: new Set<string> };
+      return acc;
+    }, {} as Record<string, { count: number, total: number, cpfs: Set<string> }>);
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -201,6 +212,7 @@ export const DataProvider = ({ children }: DataProps) => {
         products,
         months,
         monthlyData,
+        monthlyDataCostumer,
         sales,
         salesToday,
         customers,
