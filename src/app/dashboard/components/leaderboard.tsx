@@ -12,8 +12,8 @@ import { DataContext } from "@/context/datas";
 
 import Summary from "../../components/summary";
 
-import AnalystReceivingChart from "./charts/analyst-receiving-chart";
-import BarChartComponent from "./charts/bar-chart";
+import AnalystReceivingChart from "./charts/analyst-receiving";
+import BarChartComponent from "./charts/balance-products";
 import DotsLineChartComponent from "./charts/costumers";
 import TooltipChartComponent from "./charts/tooltip-chart";
 import PieChartComponent from "./charts/pie-chart";
