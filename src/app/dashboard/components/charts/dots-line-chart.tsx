@@ -17,39 +17,16 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+
 const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 90, fill: "var(--color-other)" },
+  { month: '', clientes: 275 },
 ]
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  clientes: {
+    label: "clientes",
     color: "hsl(var(--chart-2))",
-  },
-  chrome: {
-    label: "Chrome",
-    color: "hsl(var(--chart-1))",
-  },
-  safari: {
-    label: "Safari",
-    color: "hsl(var(--chart-2))",
-  },
-  firefox: {
-    label: "Firefox",
-    color: "hsl(var(--chart-3))",
-  },
-  edge: {
-    label: "Edge",
-    color: "hsl(var(--chart-4))",
-  },
-  other: {
-    label: "Other",
-    color: "hsl(var(--chart-5))",
-  },
+  }
 } satisfies ChartConfig
 
 const DotsLineChartComponent = () => {
@@ -76,25 +53,25 @@ const DotsLineChartComponent = () => {
               content={
                 <ChartTooltipContent
                   indicator="line"
-                  nameKey="visitors"
+                  nameKey="clientes"
                   hideLabel
                 />
               }
             />
             <Line
-              dataKey="visitors"
+              dataKey="clientes"
               type="natural"
               stroke="var(--color-visitors)"
               strokeWidth={2}
               dot={({ payload, ...props }) => {
                 return (
                   <Dot
-                    key={payload.browser}
+                    key={payload.month}
                     r={5}
                     cx={props.cx}
                     cy={props.cy}
-                    fill={payload.fill}
-                    stroke={payload.fill}
+                    fill="var(--color-visitors)"
+                    stroke="var(--color-visitors)"
                   />
                 )
               }}

@@ -72,7 +72,6 @@ const AnalystReceivingChart = () => {
   // Chamando a função para obter os valores
   const { isDecreasing, percentageChange } = calculateMonthlyChange(chartData);
 
-
   return (
     <Card className="h-full">
       <CardHeader>
